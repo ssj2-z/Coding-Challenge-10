@@ -106,3 +106,61 @@ inventory.addProduct(product1); inventory.placeOrder(601, product1, 2); inventor
 console.log(product1.getDetails());
 
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
+
+// Task 5 Implementing Product Restocking
+class Inventory {
+    constructor() {
+        this.products = []; this.order = [];
+    }
+
+    addProduct(product) {
+        this.products.push(product);
+    }
+
+    listProducts() {
+        this.products.forEach(products => {
+            console.log(product.getDetails());
+        });
+    }
+
+    placeOrder(orderId, product, quantity) {
+        if (product.stock >= quantity) {
+            const order = new Order(orderId, this.products, quantity); this.order.push(order);
+            console.log(`Order placed successfully: ${order.getOrderDetails()}`);
+        } else {
+            console.log(`Insufficient stock for product: ${product.name}`);
+        }
+    }
+
+    listOrders() {
+        this.order.forEach(order => {
+            console.log(order.getOrderDetails());
+        });
+    }
+
+    restockProduct(productId, quantity) {
+        const product = this.products.find(p => p.id === productId);
+        if (product) {
+            product.stock += quantity;
+            console.log(`Product restocked successfully: ${product.getDetails()}`);
+        } else {
+            console.log(`Product with ID: ${productId} not found.`);
+        }
+    }
+}
+
+// Test cases 
+const inventory = new Inventory();
+inventory.addProduct(product1);
+
+inventory.placeOrder(601, product1, 2); inventory.listOrders();
+
+// Expected output: "Order ID: 601, Product: Laptop, Quantity: 2 Total Price: $2400"
+
+console.log(product1.getDetails());
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
+
+inventory.restockProduct(101, 5);
+
+console.log(product1.getDetails());
+// Expecteed output: "Product: Laptop, ID: 101, Price: $1200, Stock: 8"
